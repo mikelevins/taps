@@ -80,10 +80,34 @@ Returns a new series created by computing a (possibly infinite) series of values
 
     tap-fn (fn series) => series
 
+Returns a new series of values computed by mapping the function `fn` over the elements of `series`.
+
 **tap-integers** *Function*<br/>
 
     tap-integers (&key from by upto below downto above) => series
 
+Returns a new series of integers. The first element of the series is
+`from`, whose default value is zero. Each successive element is
+obtained by adding the value of `by` to the previous one. THe default
+value of `by` is one. If `upto` is supplied then the series continues
+until the next element is greater than `upto`. If `below` is supplied,
+it continues until the next element is greater than or equal to
+`below`. If `downto` is supplied, it continues until the next element
+is less than `downto`. If `above` is supplied then it continues until
+the next element is less than or equal to `above`.
+
+The series returned by tap-integers may be of infinite length. For
+example, the expression
+
+    (tap-integers)
+
+returns an infinite series that starts with
+
+    #Z(0 1 2 3 ...
+
 **tap-random-integers** *Function*<br/>
 
     tap-random-integers (below &optional (random-state *random-state*)) => series
+
+Returns an infinite series of random integers, each less than `below`.
+
