@@ -64,13 +64,18 @@ Returns a new series created by computing a (possibly infinite) series of values
 | element-type | source | Description |  
 |  ------	| ------	| ------	|  
 | `:bytes` | `stream` | Returns a series of bytes read from the stream. |  
+| `:bytes` | `pathname` | Returns a series of bytes read from the file. |  
 | `:characters` | `stream` | Returns a series of characters read from the stream. |  
+| `:characters` | `pathname` | Returns a series of character read from the file. |  
 | `:characters` | `string` | Returns a series of characters read from the string. |  
 | `:words` | `stream` | Returns a series of 'words' read from the stream. <br/>Pass the keyword argument `:word-break-characters` <br/>with a list of characters to control text is broken into words. |  
+| `:words` | `pathname` | Returns a series of 'words' read from the file. <br/>Pass the keyword argument `:word-break-characters` <br/>with a list of characters to control text is broken into words. |  
 | `:words` | `string` | Returns a series of 'words' read from the string. <br/>Pass the keyword argument `:word-break-characters` <br/>with a list of characters to control text is broken into words. |  
 | `:lines` | `stream` | Returns a series of lines of text read from the stream.  <br/>Pass the keyword argument `:line-break-characters` <br/>with a list of characters to control how text is broken into lines.|  
+| `:lines` | `pathname` | Returns a series of lines of text read from the file.  <br/>Pass the keyword argument `:line-break-characters` <br/>with a list of characters to control how text is broken into lines.|  
 | `:lines` | `string` | Returns a series of lines of text read from the string.  <br/>Pass the keyword argument `:line-break-characters` <br/>with a list of characters to control how text is broken into lines.|  
 | `:objects` | `stream` | Returns a series of Lisp objects read from the stream. |  
+| `:objects` | `pathname` | Returns a series of Lisp objects read from the file. |  
 | `:objects` | `string` | Returns a series of Lisp objects read from the string. |  
 | `:hash-entries` | `hash-table` | Returns two series as multiple values: a series of the keys in the hash-table, and a series of its corresponding values. |  
 | `:keys` | `hash-table` | Returns a series containing the keys from the hash-table. |  
