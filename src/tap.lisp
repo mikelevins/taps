@@ -21,7 +21,6 @@
               :downto downto
               :above above))
 
-
 (defun tap-random-integers (below &optional (random-state *random-state*))
   (let ((iota (scan-range :from 0 :by 1)))
     (map-fn t (lambda (i)(random below random-state))

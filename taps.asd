@@ -20,6 +20,7 @@
                 :serial t
                 :components ((:file "package")
                              (:file "drop")
+                             (:file "filter")
                              (:file "take")
                              (:file "tap")
                              (:file "character")
