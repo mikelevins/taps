@@ -97,8 +97,8 @@
 
 (defun generate-names (n samples-file)
   (init-rules samples-file)
-  (loop for i from 0 below n
-     collect (extend-name (any-start))))
+  (map-fn t (lambda (i)(extend-name (any-start)))
+          (take n (tap-integers))))
 
-;;; (generate-names 10 "dickens.names")
+;;; (time (generate-names 100 "dickens.names"))
 
