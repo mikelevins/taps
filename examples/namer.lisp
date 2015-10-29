@@ -10,32 +10,40 @@
 
 (in-package #:taps)
 
-(defmethod read-lines ((path pathname))
-  (tap :lines path))
+(defparameter *name-starts* nil)
+(defparameter *name-parts* nil)
+(defparameter *name-ends* nil)
 
-;;; (time (read-lines (pathname "dickens.names")))
+(defun long-enough? (seq)
+  (> (length seq) 1))
 
-(defmethod long-enough? ((thing sequence))
-  (> (length thing) 1))
+(defun read-names (filename)
+  (filter #'long-enough? (tap :lines (pathname filename))))
 
-(defmethod read-names ((path pathname))
-  (filter #'long-enough? (read-lines path)))
+;;; (time (read-names "dickens.names"))
 
-;;; (time (read-names (pathname "dickens.names")))
+(defun triples (str)
+  (take-until (lambda (it)(< (length it) 3))
+                       (take-m-by-n 3 1 str)))
 
-(defmethod triples ((txt string))
-  (let* ((chunks (take-m-by-n 3 1 (scan txt)))
-         (strings (map-fn t (lambda (chunk)(collect 'string chunk)) chunks)))
-    (take-until (lambda (s)(equal "" s))
-                strings)))
+;;; (triples "Barnaby")
 
-;;; (time (triples "Barney"))
+(defun parse-names (filename)
+  (let* ((names (tap-fn #'triples (read-names filename)))
+         (starts (tap-fn (lambda (name)(take 1 name))
+                         names))
+         (parts (tap-fn (lambda (name)(drop 1 name))
+                        names)))
+    (values starts parts)))
 
-(defmethod parse-names ((path pathname))
-  (let* ((triples (tap-fn #'triples (read-names path)))
-         (starts (tap-fn #'(lambda (it)(take 1 it)) triples))
-         (ends (tap-fn #'(lambda (it)(drop 1 it)) triples)))
-    (values triples starts ends)))
+;;; (parse-names "dickens.names")
 
-;;; (time (parse-names (pathname "dickens.names")))
+(defun init-rules (rule-file)
+  (setf (values *name-starts*
+                *name-parts*)
+        (parse-names rule-file)))
 
+;;; (init-rules "dickens.names")
+
+(defun generate-name ()
+  (extend-name (any-name-start)))
