@@ -22,7 +22,9 @@
                              (:file "drop")
                              (:file "filter")
                              (:file "any")
+                             (:file "contains")
                              (:file "take")
+                             (:file "leave")
                              (:file "tap")
                              (:file "character")
                              (:file "stream")
@@ -31,4 +33,3 @@
                              (:file "hash")))))
 
 ;;; (asdf:load-system :taps)
-
