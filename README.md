@@ -18,11 +18,35 @@ Used judiciously, Taps can make many looping or iterative processes easier to wr
 
 ## Taps Reference
 
+This section describes the functions that make up the Taps library. The generic function `tap` is the heart of the library, but several utility functions are also provided for mapping over series, collecting values from them, and so on.
+
+In most cases a function that operates on series also works if its arguments are Common Lisp sequences. For example, you can use `take` to collect values from a series, but it works just as well to collect values from lists, strings, or vectors.
+
+### Variables
+
 **+line-break-characters+** *Special variable*<br/>
 The default set of characters used to break lines of text.
 
 **+whitespace-characters+** *Special variable*<br/>
 The default set of characters treated as whitespace.
+
+### Functions
+
+**any** *Generic function*<br/>
+
+    any (series) => value
+
+Returns an arbitrary element of `series`.
+
+**Warning:** `any` works only on sequences and finite series. If applied to an infinite series it will never return.
+
+**contains?** *Generic function*<br/>
+
+    contains? (series value &key (test 'eql))=> Boolean
+
+Returns true if `value` is a member of the series. `test` is used to compare `value` to elements of the series.
+
+**Warning:** `contains?` works only on sequences and finite series. If applied to an infinite series it will never return.
 
 **drop** *Generic function*<br/>
 
@@ -34,6 +58,24 @@ Returns a new series containing all the elements of `series` except for the firs
 
     filter (fn series) => series*
 Returns a new series, `series*` created by mapping `fn` over the elements of `series` and collecting those for which `fn` returns a true value.
+
+**leave** *Generic function*<br/>
+
+    leave (n series) => series*
+
+Returns a new series containing the last `n` elements of `series`.
+
+**Warning:** `leave` works only on sequences and finite series. If applied to an infinite series it will never return.
+
+**tails** *Generic function*<br/>
+
+    tails (series) => series*
+Returns a new series of series. Each member series is constructed by dropping the first element of the previous series. If `series` is finite, then each tail will be finite. If it's inifnite, then the tails will be, too. Be careful how you use it; for example, `(tails (tap-integers))` returns an infinite series of infinite series.
+
+**tails-by** *Generic function*<br/>
+
+    tails-by (n series) => series*
+Returns a new series of series. Each member series is constructed by dropping the first `n` elements of the previous series. If `series` is finite, then each tail will be finite. If it's inifnite, then the tails will be, too. Be careful how you use it; for example, `(tails-by n (tap-integers))` returns an infinite series of infinite series.
 
 **take** *Generic function*<br/>
 
