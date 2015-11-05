@@ -18,7 +18,7 @@
   (> (length seq) 2))
 
 (defun triples (str)
-  (take-until (lambda (it)(< (length it) 3))
+  (take-until (lambda (it)(not (long-enough? it)))
               (take-m-by-n 3 1 str)))
 
 (defun read-names (filename)
@@ -97,8 +97,13 @@
 
 (defun generate-names (n samples-file)
   (init-rules samples-file)
-  (map-fn t (lambda (i)(extend-name (any-start)))
-          (take n (tap-integers))))
+  (take n
+        (map-fn t (lambda (i)(extend-name (any-start)))
+                (tap-integers))))
 
-;;; (time (generate-names 100 "dickens.names"))
 
+;;; (time (generate-names 100 "goblin.names"))
+;;; (generate-names 10 "dickens.names")
+;;; (generate-names 10 "us.names")
+;;; (generate-names 10 "gnome.names")
+;;; (generate-names 10 "goblin.names")
